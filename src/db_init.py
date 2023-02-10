@@ -19,10 +19,12 @@ def create_table_iverbs(cur):
     cur.execute(__sql__)
 
 def create_table_users(cur):
-    __sql__ = """CREATE TABLE IF NOT EXISTS users (
+    __sql__ = """CREATE TABLE users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT,
-                state TEXT
+                state TEXT,
+                verb_id INTEGER,
+                CONSTRAINT users_FK FOREIGN KEY (verb_id) REFERENCES iverbs(id)
                 );"""
 
 main()

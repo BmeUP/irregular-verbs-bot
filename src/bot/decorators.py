@@ -16,5 +16,5 @@ class CheckUser():
             self.create_user()
     
     def create_user(self):
-        sql = """insert into users(user_id, state) values(:user_id, 'self-input')"""
+        sql = """insert into users(user_id, state) values(:user_id, 'selfinput')"""
         db.execute(sql, {"user_id": self.message.from_user.id})
