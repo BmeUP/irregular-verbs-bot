@@ -4,6 +4,7 @@ from telebot import types
 from .settings import settings
 from .decorators import CheckUser
 from .main_state import states
+from .hello_message import hello
 
 token = settings.bot_token
 
@@ -20,9 +21,8 @@ def send_welcome(message):
     markup.add(self_input_btn)
     markup.add(quiz_btn)
     markup.add(sheet_btn)
-    bot.send_message(message.chat.id, 
-    f"Hello {message.from_user.first_name}! I`m iVerbBot. And I know something about irregular verbs.",
-    reply_markup=markup)
+    bot.send_message(message.chat.id, hello(message),
+    reply_markup=markup, parse_mode="MarkdownV2")
     
 
 @bot.message_handler(content_types=["text"])
