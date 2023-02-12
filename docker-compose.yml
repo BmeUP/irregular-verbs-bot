@@ -6,4 +6,4 @@ services:
     env_file: '.env'
     command: 'python main.py'
     volumes:
-      - .iverbs.db:/iverbs.db
+      - ./iverbs.db:/app/iverbs.db

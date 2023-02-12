@@ -32,8 +32,8 @@ class QuizState(IState):
         self.set_last_verb(verb[0])
     
     def set_last_verb(self, verb_id):
-        sql = "UPDATE users SET verb_id = :verb_id"
-        params = {"verb_id": verb_id}
+        sql = "UPDATE users SET verb_id = :verb_id WHERE user_id = :user_id"
+        params = {"verb_id": verb_id, "user_id": self.message.from_user.id}
         db.execute(sql, params)
 
     def check_user_answer(self):

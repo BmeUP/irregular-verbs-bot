@@ -29,8 +29,11 @@ class SelfInputState(IState):
     
     def generate_message(self):
         self.text += f"First form is  {self.generate_link(self.data[0])}\n"
-        self.text += f"Second form is {self.generate_link(self.data[1])}\n"
-        self.text += f"Third form is {self.generate_link(self.data[2])}\n"
+        self.text += f"Second form is {self.generate_link(self.replace_characters(self.data[1]))}\n"
+        self.text += f"Third form is {self.generate_link(self.replace_characters(self.data[2]))}\n"
+    
+    def replace_characters(self, verb):
+        return verb.replace("(", "\(").replace(")", "\)")
 
     def generate_link(self, verb):
         return f"[{verb}](https://dictionary.cambridge.org/dictionary/english-russian/{verb})"
