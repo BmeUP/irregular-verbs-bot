@@ -17,10 +17,10 @@ def send_welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     self_input_btn = types.KeyboardButton("SelfInput")
     quiz_btn = types.KeyboardButton("Quiz")
-    sheet_btn = types.KeyboardButton("Gimme that sheet!")
+    # sheet_btn = types.KeyboardButton("Gimme that sheet!")
     markup.add(self_input_btn)
     markup.add(quiz_btn)
-    markup.add(sheet_btn)
+    # markup.add(sheet_btn)
     bot.send_message(message.chat.id, hello(message),
     reply_markup=markup, parse_mode="MarkdownV2")
     

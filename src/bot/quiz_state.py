@@ -1,12 +1,16 @@
+import random
+
 from .state_interface import IState
 from .db import db
+from .dict_model import DictModel
 
 class QuizState(IState):
-    def __init__(self, message, bot) -> None:
+    def __init__(self, message, bot, verbs: list[DictModel]) -> None:
         self.message = message
         self.bot = bot
         self.text = ""
         self.user = None
+        self.verbs = verbs
     
     def process_message(self):
         if self.message.text == "Quiz":
@@ -22,14 +26,19 @@ class QuizState(IState):
         self.user = user
         self.get_verb()
     
+    def get_clear_word(self):
+        verb = random.choice(self.verbs)
+
+        if "-" in verb.first_form:
+            return self.get_clear_word()
+        
+        return verb
+
     def get_verb(self):
-        sql = """SELECT i.id, i.first_form FROM iverbs i 
-                 WHERE id != :id ORDER BY RANDOM() LIMIT 1;"""
-        params = {"id": 0 if self.user[3] is None else self.user[3]}
-        verb = db.fetch_one(sql, params)
+        verb = self.get_clear_word()
         self.text += "Example of answer `Second form, Third form`\n"
-        self.text += f"The first form of verb is {verb[1]}\."
-        self.set_last_verb(verb[0])
+        self.text += f"The first form of verb is {verb.first_form}\."
+        self.set_last_verb(verb.first_form)
     
     def set_last_verb(self, verb_id):
         sql = "UPDATE users SET verb_id = :verb_id WHERE user_id = :user_id"
@@ -38,15 +47,12 @@ class QuizState(IState):
 
     def check_user_answer(self):
         splited_text = self.message.text.split(",")
-
+        res = None
         try:
-            second_form = splited_text[0].strip().lower()
-            third_form = splited_text[1].strip().lower()
-            sql = """SELECT id FROM iverbs 
-                     where (second_form = :second_form and 
-                            third_form = :third_form);"""
-            params = {"second_form": f"{second_form} ", "third_form": f"{third_form} "}
-            res = db.fetch_one(sql, params)
+            for obj in self.verbs:
+                if obj.second_form == splited_text[0].lower().strip() and obj.third_form == splited_text[1].lower().strip():
+                    res = True
+
             if res:
                 self.right_answer()
             else:

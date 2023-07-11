@@ -12,9 +12,9 @@ def hello(message):
     text += "And you should send me back a second form and the third form of that verb\n"
     text += "In this format \-\> `second_form`, `third_form` it\`s important\!\n"
     text += "\n\n"
-    text += "Also, I can send you `irregular verbs cheat\-sheet`\n"
-    text += "Just hit the `Gimme that sheet\!` button\.\n"
-    text += "\n\n"
+    # text += "Also, I can send you `irregular verbs cheat\-sheet`\n"
+    # text += "Just hit the `Gimme that sheet\!` button\.\n"
+    # text += "\n\n"
     text += "If you noticed that something goes wrong\."
     text += "Feel free to text my owner @bmeupwork"
     return text
