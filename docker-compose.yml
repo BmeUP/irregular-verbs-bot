@@ -4,6 +4,5 @@ services:
   bot:
     build: .
     env_file: '.env'
-    command: 'python main.py'
     volumes:
-      - ./iverbs.db:/app/iverbs.db
+      - ./iverbs.db:/app/src/iverbs.db

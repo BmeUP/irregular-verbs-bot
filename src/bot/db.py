@@ -3,7 +3,7 @@ import sqlite3
 
 class Db():
     def __init__(self) -> None:
-        self.con = sqlite3.connect("iverbs.db", check_same_thread=False)
+        self.con = sqlite3.connect("./src/iverbs.db", check_same_thread=False)
         self.cur = self.con.cursor()
     
     def fetch_one(self, sql, params):

@@ -4,7 +4,7 @@ import sqlite3
 def main():
     con = sqlite3.connect("iverbs.db")
     cur = con.cursor()
-    create_table_iverbs(cur)
+    # create_table_iverbs(cur)
     create_table_users(cur)
 
 
@@ -26,5 +26,9 @@ def create_table_users(cur):
                 verb_id INTEGER,
                 CONSTRAINT users_FK FOREIGN KEY (verb_id) REFERENCES iverbs(id)
                 );"""
+    try:
+        cur.execute(__sql__)
+    except sqlite3.OperationalError:
+        pass
 
 main()
